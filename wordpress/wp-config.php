@@ -85,10 +85,26 @@ $table_prefix = 'se_';
  *
  * @link https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/
  */
-define( 'WP_DEBUG', true );
+define( 'WP_DEBUG', true );          // Debugging überhaupt einschalten
+# define( 'WP_DEBUG_LOG', true );      // ← das ist das Wichtigste! → schreibt in ~/wp-content/debug.log
+define( 'WP_DEBUG_LOG', '../wp-errors.log' );
+define( 'WP_DEBUG_DISPLAY', false ); // Fehler NICHT auf der Website anzeigen (sehr wichtig bei Live-Seiten!)
+@ini_set( 'display_errors', 0 );
+
 
 /* Add any custom values between this line and the "stop editing" line. */
 
+/** REDIS */
+define('WP_REDIS_HOST', '127.0.0.1');
+define('WP_REDIS_PORT', 6379);
+define('WP_REDIS_DATABASE', 2);     // falls mehrere WP-Instanzen
+define('WP_CACHE_KEY_SALT', 'simonneelle.de');
+
+/**
+ * Das zwingt WordPress, direkt über PHP zu schreiben (statt FTP-Fallback). 
+ * Bei korrekten Rechten funktioniert das zu 95 %. 
+ */
+define('FS_METHOD', 'direct');
 
 
 /* That's all, stop editing! Happy publishing. */
