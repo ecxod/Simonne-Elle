@@ -1,0 +1,3 @@
+[21-Feb-2026 14:27:40 UTC] PHP Deprecated:  html_entity_decode(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/simonneelle_de/wordpress/wp-includes/widgets.php on line 1652
+[21-Feb-2026 14:27:40 UTC] PHP Deprecated:  html_entity_decode(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/simonneelle_de/wordpress/wp-includes/widgets.php on line 1652
+[21-Feb-2026 14:27:41 UTC] PHP Deprecated:  html_entity_decode(): Passing null to parameter #1 ($string) of type string is deprecated in /var/www/simonneelle_de/wordpress/wp-includes/widgets.php on line 1652
