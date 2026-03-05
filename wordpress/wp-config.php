@@ -87,7 +87,7 @@ $table_prefix = 'se_';
  */
 define( 'WP_DEBUG', true );          // Debugging überhaupt einschalten
 # define( 'WP_DEBUG_LOG', true );      // ← das ist das Wichtigste! → schreibt in ~/wp-content/debug.log
-define( 'WP_DEBUG_LOG', '../wp-errors.log' );
+define( 'WP_DEBUG_LOG', '/var/log/wordpress/simonneelle_de/wp-errors.log' );
 define( 'WP_DEBUG_DISPLAY', false ); // Fehler NICHT auf der Website anzeigen (sehr wichtig bei Live-Seiten!)
 @ini_set( 'display_errors', 0 );
 
