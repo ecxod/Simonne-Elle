@@ -1,4 +1,14 @@
 User-agent: *
 Allow: /
+
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: Google-Display-Ads-Bot
+Allow: /
+
 Crawl-delay:3
-Sitemap:https://simonneelle.de/index.php/sitemap.xml
+Sitemap:https://simonneellesuryacenter.com/index.php/sitemap.xml
