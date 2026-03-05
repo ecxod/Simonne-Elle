@@ -1,9 +1,27 @@
 <?php
+
+// Client-Cache-Antwort-Header
+function add_cache_headers() {
+    header("Cache-Control: public, max-age=31536000");
+    header("Expires: " . gmdate("D, d M Y H:i:s", time() + 31536000) . " GMT");
+
+    header("Age: 0"); // Altersheader
+    header("Last-Modified: " . gmdate("D, d M Y H:i:s", time()) . " GMT"); // Letzte Änderung
+    header("ETag: \"" . md5(time()) . "\""); // ETag-Header, hier als Hash des Zeitstempels
+    header("X-Cache-Enabled: true"); // Cache aktiviert
+    header("X-Cache-Disabled: false"); // Cache deaktiviert
+    header("X-Srcache-Store-Status: stored"); // Status der Cache-Speicherung
+    header("X-Srcache-Fetch-Status: hit"); // Status des Cache-Abrufs
+    //header("google-adsense-account: ca-pub-3796389264374929")  // <meta name="google-adsense-account" content="ca-pub-3796389264374929">
+}
+add_action('send_headers', 'add_cache_headers');
+
+
 add_action('wp_enqueue_scripts', 'child_theme_enqueue_styles');
 function child_theme_enqueue_styles() {
     // Parent-Theme-Stylesheet laden
     wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
-    
+
     // Child-Theme-Stylesheet laden (falls du eigene CSS hast)
     wp_enqueue_style('child-style', get_stylesheet_uri());
 }
