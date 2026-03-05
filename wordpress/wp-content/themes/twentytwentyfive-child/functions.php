@@ -1,5 +1,9 @@
 <?php
 
+// kein Zugriff auf xmlrpc.php
+add_filter('xmlrpc_enabled', '__return_false');
+
+
 // Client-Cache-Antwort-Header
 function add_cache_headers() {
     header("Cache-Control: public, max-age=31536000");
@@ -12,7 +16,6 @@ function add_cache_headers() {
     header("X-Cache-Disabled: false"); // Cache deaktiviert
     header("X-Srcache-Store-Status: stored"); // Status der Cache-Speicherung
     header("X-Srcache-Fetch-Status: hit"); // Status des Cache-Abrufs
-    //header("google-adsense-account: ca-pub-3796389264374929")  // <meta name="google-adsense-account" content="ca-pub-3796389264374929">
 }
 add_action('send_headers', 'add_cache_headers');
 
