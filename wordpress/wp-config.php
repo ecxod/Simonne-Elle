@@ -21,32 +21,40 @@
 // TODO: ABSPATH ermittlung muss man härten ..
 /** Absolute path to the WordPress directory. 
  * /var/www/simonneelle_de/wordpress/
-*/
-if ( ! defined( 'ABSPATH' ) ) {
-	define( 'ABSPATH', __DIR__ . '/' );
+ */
+if (!defined('ABSPATH')) {
+    define('ABSPATH', __DIR__ . '/');
 }
-require_once dirname(ABSPATH, 1) . '/vendor/autoload.php';
-\Sentry\init(['dsn' => 'https://087a1577600b422480fe5966f43893c7@sentry.zp1.net/38' ]);
+$autoload = realpath(dirname(ABSPATH,1) . '/vendor/autoload.php');
+if (file_exists($autoload)) {
+    require_once $autoload;
+}
 
+$envfile = realpath(dirname(ABSPATH, 1));
+$dotenv = Dotenv\Dotenv::createImmutable($envfile);
+$dotenv->load();
+$dotenv->required('SENTRY_DSN');
+
+\Sentry\init(['dsn' => $_ENV['SENTRY_DSN']]);
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'wordpress' );
+define('DB_NAME', 'wordpress');
 
 /** Database username */
-define( 'DB_USER', 'wpuser' );
+define('DB_USER', 'wpuser');
 
 /** Database password */
-define( 'DB_PASSWORD', 'Ein:Sehr:Langes:Passwort:2025!' );
+define('DB_PASSWORD', 'Ein:Sehr:Langes:Passwort:2025!');
 
 /** Database hostname */
-define( 'DB_HOST', 'localhost' );
+define('DB_HOST', 'localhost');
 
 /** Database charset to use in creating database tables. */
-define( 'DB_CHARSET', 'utf8mb4' );
+define('DB_CHARSET', 'utf8mb4');
 
 /** The database collate type. Don't change this if in doubt. */
-define( 'DB_COLLATE', '' );
+define('DB_COLLATE', '');
 
 /**#@+
  * Authentication unique keys and salts.
@@ -59,14 +67,14 @@ define( 'DB_COLLATE', '' );
  *
  * @since 2.6.0
  */
-define( 'AUTH_KEY',         '6c|w W^%v=F1wc&:7H!fO`~-ng0KUFn:L^%De0%k0d:^fPI9oT#>1rn?G<Ja<~+E' );
-define( 'SECURE_AUTH_KEY',  'DGTa4n:]~?[Zc>UUbgHiyUbBJd$J&0?X{.^Iy.}-c0V~TJg=iKHU=% )C]1-QlBk' );
-define( 'LOGGED_IN_KEY',    'pnWZLxp);!iI6hlN0.L98Z=XH{g#Sh4!%H:GJERs@Y.>/SBxlEg#^[Et22L* x/A' );
-define( 'NONCE_KEY',        ',K;y(-0PG>2r;m|.@sVw,HzFMS2axZ60;b0ZD4l0mu~7*5fAbI=-gj2]V%LkApui' );
-define( 'AUTH_SALT',        'Y:nS04VrsPh!kPy* UM@D#!OlvVkNX+eC!uC|?y.V+PM*`BjC/g;lBX$|(iQ7~`5' );
-define( 'SECURE_AUTH_SALT', '[11OAVEIK;:<($x+*ag!;?ZOLM >1e<Pf=``=-[KFQP^iz/P9<ISK.[7N+H{wVj)' );
-define( 'LOGGED_IN_SALT',   '](CI v]#DMJq5vu|Gpb~xB<YDR^{]^)FovwR8-{lF9]alqZ[Yk~pD16SgK=HLzBW' );
-define( 'NONCE_SALT',       'c8X_m^d.[nlvin& <7^e+^/~4 ?&8C~LjEo1/kSL=w|>)I/u%E(VhRXJ1|>=h8Ll' );
+define('AUTH_KEY', '6c|w W^%v=F1wc&:7H!fO`~-ng0KUFn:L^%De0%k0d:^fPI9oT#>1rn?G<Ja<~+E');
+define('SECURE_AUTH_KEY', 'DGTa4n:]~?[Zc>UUbgHiyUbBJd$J&0?X{.^Iy.}-c0V~TJg=iKHU=% )C]1-QlBk');
+define('LOGGED_IN_KEY', 'pnWZLxp);!iI6hlN0.L98Z=XH{g#Sh4!%H:GJERs@Y.>/SBxlEg#^[Et22L* x/A');
+define('NONCE_KEY', ',K;y(-0PG>2r;m|.@sVw,HzFMS2axZ60;b0ZD4l0mu~7*5fAbI=-gj2]V%LkApui');
+define('AUTH_SALT', 'Y:nS04VrsPh!kPy* UM@D#!OlvVkNX+eC!uC|?y.V+PM*`BjC/g;lBX$|(iQ7~`5');
+define('SECURE_AUTH_SALT', '[11OAVEIK;:<($x+*ag!;?ZOLM >1e<Pf=``=-[KFQP^iz/P9<ISK.[7N+H{wVj)');
+define('LOGGED_IN_SALT', '](CI v]#DMJq5vu|Gpb~xB<YDR^{]^)FovwR8-{lF9]alqZ[Yk~pD16SgK=HLzBW');
+define('NONCE_SALT', 'c8X_m^d.[nlvin& <7^e+^/~4 ?&8C~LjEo1/kSL=w|>)I/u%E(VhRXJ1|>=h8Ll');
 
 /**#@-*/
 
@@ -96,11 +104,11 @@ $table_prefix = 'se_';
  *
  * @link https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/
  */
-define( 'WP_DEBUG', true );          // Debugging überhaupt einschalten
+define('WP_DEBUG', true); // Debugging überhaupt einschalten
 # define( 'WP_DEBUG_LOG', true );      // ← das ist das Wichtigste! → schreibt in ~/wp-content/debug.log
-define( 'WP_DEBUG_LOG', '/var/log/wordpress/simonneelle_de/wp-errors.log' );
-define( 'WP_DEBUG_DISPLAY', false ); // Fehler NICHT auf der Website anzeigen (sehr wichtig bei Live-Seiten!)
-@ini_set( 'display_errors', 0 );
+define('WP_DEBUG_LOG', '/var/log/wordpress/simonneelle_de/wp-errors.log');
+define('WP_DEBUG_DISPLAY', false); // Fehler NICHT auf der Website anzeigen (sehr wichtig bei Live-Seiten!)
+@ini_set('display_errors', 0);
 
 
 /* Add any custom values between this line and the "stop editing" line. */
@@ -108,7 +116,7 @@ define( 'WP_DEBUG_DISPLAY', false ); // Fehler NICHT auf der Website anzeigen (s
 /** REDIS */
 define('WP_REDIS_HOST', '127.0.0.1');
 define('WP_REDIS_PORT', 6379);
-define('WP_REDIS_DATABASE', 2);     // falls mehrere WP-Instanzen
+define('WP_REDIS_DATABASE', 2); // falls mehrere WP-Instanzen
 define('WP_CACHE_KEY_SALT', 'simonneelle.de');
 
 /**
@@ -124,4 +132,3 @@ define('FS_METHOD', 'direct');
 
 /** Sets up WordPress vars and included files. */
 require_once ABSPATH . 'wp-settings.php';
-
