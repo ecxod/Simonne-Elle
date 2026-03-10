@@ -6,16 +6,15 @@
 */
 
 // Absoluter Pfad zum Vendor-Verzeichnis (außerhalb von WordPress-Core)
-$base_dir = dirname(ABSPATH); // Das ist /var/www/simonneelle_de/
-error_log("BASEDIR = ".$base_dir);
-$autoload_file = $base_path . '/vendor/autoload.php';
+
+$autoload_file = realpath( dirname(ABSPATH). '/vendor/autoload.php');
 
 if (file_exists($autoload_file)) {
     require_once $autoload_file;
     
     // Initialisierung von Dotenv (falls du es nutzt)
     if (class_exists('Dotenv\Dotenv')) {
-        $dotenv = Dotenv\Dotenv::createImmutable($base_path);
+        $dotenv = Dotenv\Dotenv::createImmutable(ABSPATH);
         $dotenv->safeLoad();
     }
 }
