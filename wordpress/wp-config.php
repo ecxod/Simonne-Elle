@@ -25,7 +25,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	define( 'ABSPATH', __DIR__ . '/' );
 }
-require_once ABSPATH . '../vendor/autoload.php';
+require_once dirname(ABSPATH, 1) . '/vendor/autoload.php';
 \Sentry\init(['dsn' => 'https://087a1577600b422480fe5966f43893c7@sentry.zp1.net/38' ]);
 
 
