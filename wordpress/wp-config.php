@@ -18,6 +18,17 @@
  * @package WordPress
  */
 
+// TODO: ABSPATH ermittlung muss man härten ..
+/** Absolute path to the WordPress directory. 
+ * /var/www/simonneelle_de/wordpress/
+*/
+if ( ! defined( 'ABSPATH' ) ) {
+	define( 'ABSPATH', __DIR__ . '/' );
+}
+require_once ABSPATH . '../vendor/autoload.php';
+\Sentry\init(['dsn' => 'https://087a1577600b422480fe5966f43893c7@sentry.zp1.net/38' ]);
+
+
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 define( 'DB_NAME', 'wordpress' );
@@ -109,10 +120,8 @@ define('FS_METHOD', 'direct');
 
 /* That's all, stop editing! Happy publishing. */
 
-/** Absolute path to the WordPress directory. */
-if ( ! defined( 'ABSPATH' ) ) {
-	define( 'ABSPATH', __DIR__ . '/' );
-}
+
 
 /** Sets up WordPress vars and included files. */
 require_once ABSPATH . 'wp-settings.php';
+
