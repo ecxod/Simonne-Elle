@@ -1,0 +1,21 @@
+{
+    "name": "ecxod/simonneelle",
+    "description": "Simonne Elle Wordpress",
+    "type": "project",
+    "license": "GPL-3.0",
+    "autoload": {
+        "psr-4": {
+            "Ecxod\\Simonneelle\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Christian Eichert",
+            "email": "c@zp1.net"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
