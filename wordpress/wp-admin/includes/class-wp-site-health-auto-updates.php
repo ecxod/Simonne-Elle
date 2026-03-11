@@ -272,7 +272,7 @@ class WP_Site_Health_Auto_Updates {
 					'<code>' . $check_dir . '</code>',
 					"<code>$vcs_dir</code>"
 				),
-				'severity'    => 'info',
+				'severity'    => 'warning',
 			);
 		}
 
@@ -381,12 +381,9 @@ class WP_Site_Health_Auto_Updates {
 			if ( ! file_exists( ABSPATH . $file ) ) {
 				continue;
 			}
-			/** eichert war da 
-			 * TODO 
-			*/
-			// if ( ! is_writable( ABSPATH . $file ) ) {
-			// 	$unwritable_files[] = $file;
-			// }
+			if ( ! is_writable( ABSPATH . $file ) ) {
+				$unwritable_files[] = $file;
+			}
 		}
 
 		if ( $unwritable_files ) {

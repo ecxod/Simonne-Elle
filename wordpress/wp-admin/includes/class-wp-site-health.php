@@ -1408,11 +1408,7 @@ class WP_Site_Health {
 		);
 
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-			/** eichert war da 
-			 * TODO: in allen anderen Wordpress ändern
-			*/
-			$absolute_path = realpath(WP_DEBUG_LOG);
-			if ( defined( 'WP_DEBUG_LOG' ) && ($absolute_path && strpos($absolute_path, realpath( ABSPATH )) === 0) ) {
+			if ( defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
 				$result['label'] = __( 'Your site is set to log errors to a potentially public file' );
 
 				$result['status'] = str_starts_with( ini_get( 'error_log' ), ABSPATH ) ? 'critical' : 'recommended';
