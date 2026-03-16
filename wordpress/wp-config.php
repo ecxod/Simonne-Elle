@@ -33,28 +33,24 @@ if (file_exists($autoload)) {
 $envfile = realpath(dirname(ABSPATH, 1));
 $dotenv = Dotenv\Dotenv::createImmutable($envfile);
 $dotenv->load();
+# $dotenv->safeLoad();
 $dotenv->required('SENTRY_DSN');
 
 \Sentry\init(['dsn' => $_ENV['SENTRY_DSN']]);
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'wordpress');
-
+define( 'DB_NAME',     $_ENV['DB_NAME'] );
 /** Database username */
-define('DB_USER', 'wpuser');
-
+define( 'DB_USER',     $_ENV['DB_USER'] );
 /** Database password */
-define('DB_PASSWORD', 'Ein:Sehr:Langes:Passwort:2025!');
-
+define( 'DB_PASSWORD', $_ENV['DB_PASSWORD'] );
 /** Database hostname */
-define('DB_HOST', 'localhost');
-
+define( 'DB_HOST',     $_ENV['DB_HOST'] );
 /** Database charset to use in creating database tables. */
-define('DB_CHARSET', 'utf8mb4');
-
+define( 'DB_CHARSET',  $_ENV['DB_CHARSET'] );
 /** The database collate type. Don't change this if in doubt. */
-define('DB_COLLATE', '');
+define( 'DB_COLLATE',  $_ENV['DB_COLLATE'] );
 
 /**#@+
  * Authentication unique keys and salts.
@@ -67,14 +63,14 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY', '6c|w W^%v=F1wc&:7H!fO`~-ng0KUFn:L^%De0%k0d:^fPI9oT#>1rn?G<Ja<~+E');
-define('SECURE_AUTH_KEY', 'DGTa4n:]~?[Zc>UUbgHiyUbBJd$J&0?X{.^Iy.}-c0V~TJg=iKHU=% )C]1-QlBk');
-define('LOGGED_IN_KEY', 'pnWZLxp);!iI6hlN0.L98Z=XH{g#Sh4!%H:GJERs@Y.>/SBxlEg#^[Et22L* x/A');
-define('NONCE_KEY', ',K;y(-0PG>2r;m|.@sVw,HzFMS2axZ60;b0ZD4l0mu~7*5fAbI=-gj2]V%LkApui');
-define('AUTH_SALT', 'Y:nS04VrsPh!kPy* UM@D#!OlvVkNX+eC!uC|?y.V+PM*`BjC/g;lBX$|(iQ7~`5');
-define('SECURE_AUTH_SALT', '[11OAVEIK;:<($x+*ag!;?ZOLM >1e<Pf=``=-[KFQP^iz/P9<ISK.[7N+H{wVj)');
-define('LOGGED_IN_SALT', '](CI v]#DMJq5vu|Gpb~xB<YDR^{]^)FovwR8-{lF9]alqZ[Yk~pD16SgK=HLzBW');
-define('NONCE_SALT', 'c8X_m^d.[nlvin& <7^e+^/~4 ?&8C~LjEo1/kSL=w|>)I/u%E(VhRXJ1|>=h8Ll');
+define( 'AUTH_KEY',         $_ENV['AUTH_KEY'] );
+define( 'SECURE_AUTH_KEY',  $_ENV['SECURE_AUTH_KEY'] );
+define( 'LOGGED_IN_KEY',    $_ENV['LOGGED_IN_KEY'] );
+define( 'NONCE_KEY',        $_ENV['NONCE_KEY'] );
+define( 'AUTH_SALT',        $_ENV['AUTH_SALT'] );
+define( 'SECURE_AUTH_SALT', $_ENV['SECURE_AUTH_SALT'] );
+define( 'LOGGED_IN_SALT',   $_ENV['LOGGED_IN_SALT'] );
+define( 'NONCE_SALT',       $_ENV['NONCE_SALT'] );
 
 /**#@-*/
 
@@ -90,7 +86,7 @@ define('NONCE_SALT', 'c8X_m^d.[nlvin& <7^e+^/~4 ?&8C~LjEo1/kSL=w|>)I/u%E(VhRXJ1|
  *
  * @link https://developer.wordpress.org/advanced-administration/wordpress/wp-config/#table-prefix
  */
-$table_prefix = 'se_';
+$table_prefix = $_ENV['TABLE_PREFIX'];
 
 /**
  * For developers: WordPress debugging mode.
@@ -110,20 +106,40 @@ define('WP_DEBUG_LOG', '/var/log/wordpress/simonneelle_de/wp-errors.log');
 define('WP_DEBUG_DISPLAY', false); // Fehler NICHT auf der Website anzeigen (sehr wichtig bei Live-Seiten!)
 @ini_set('display_errors', 0);
 
+# Das deaktiviert den Plugin- und Theme-Editor sowie alle Update-Benachrichtigungen im Dashboard komplett.
+define( 'DISALLOW_FILE_MODS', true );
 
 /* Add any custom values between this line and the "stop editing" line. */
 
 /** REDIS */
-define('WP_REDIS_HOST', '127.0.0.1');
-define('WP_REDIS_PORT', 6379);
-define('WP_REDIS_DATABASE', 2); // falls mehrere WP-Instanzen
-define('WP_CACHE_KEY_SALT', 'simonneelle.de');
+define( 'WP_REDIS_HOST',     $_ENV['WP_REDIS_HOST'] );
+define( 'WP_REDIS_PORT',     $_ENV['WP_REDIS_PORT'] );
+define( 'WP_REDIS_DATABASE', $_ENV['WP_REDIS_DATABASE'] );
+define( 'WP_CACHE_KEY_SALT', $_ENV['WP_CACHE_KEY_SALT'] );
 
 /**
  * Das zwingt WordPress, direkt über PHP zu schreiben (statt FTP-Fallback). 
  * Bei korrekten Rechten funktioniert das zu 95 %. 
  */
-define('FS_METHOD', 'direct');
+//define('FS_METHOD', 'direct');
+
+
+// /**
+//  * SMTP Konfiguration aus der .env
+//  * Sorgt dafür, dass WordPress PHPMailer direkt deinen Postfix nutzt
+//  */
+// add_action( 'phpmailer_init', function( $phpmailer ) {
+//     $phpmailer->isSMTP();
+//     $phpmailer->Host       = $_ENV['SMTP_HOST'] ?? '127.0.0.1';
+//     $phpmailer->SMTPAuth   = $_ENV['SMTP_AUTH'] === 'true';
+//     $phpmailer->Port       = $_ENV['SMTP_PORT'] ?? 587;
+//     $phpmailer->Username   = $_ENV['SMTP_USER'] ?? '';
+//     $phpmailer->Password   = $_ENV['SMTP_PASS'] ?? '';
+//     $phpmailer->SMTPSecure = $_ENV['SMTP_SECURE'] ?? 'tls';
+//     $phpmailer->From       = $_ENV['SMTP_FROM'] ?? 'webmaster@deine-domain.de';
+//     $phpmailer->FromName   = $_ENV['SMTP_NAME'] ?? 'WordPress Service';
+// });
+
 
 
 /* That's all, stop editing! Happy publishing. */
