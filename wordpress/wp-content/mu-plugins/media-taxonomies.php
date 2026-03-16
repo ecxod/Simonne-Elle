@@ -79,3 +79,43 @@ add_filter( 'posts_clauses', function( $clauses, $query ) {
 
     return $clauses;
 }, 10, 2 );
+
+
+/**
+ * 6. Performance-Optimierte Suche für große Mediatheken (Gitter & Liste)
+ */
+
+// Korrektur für die Kachel-Ansicht (Gitter/AJAX)
+add_filter( 'ajax_query_attachments_args', 'dry_heavy_media_search' );
+// Korrektur für die Listen-Ansicht
+add_filter( 'request', 'dry_heavy_media_search' );
+
+function dry_heavy_media_search( $query ) {
+    // Nur ausführen, wenn ein Suchbegriff ('s') vorhanden ist
+    if ( empty( $query['s'] ) ) {
+        return $query;
+    }
+
+    // Wir nutzen eine Tax-Query, die von WordPress besser indiziert wird
+    // Das ist performanter als ein manueller SQL-Join
+    $search_term = $query['s'];
+    
+    // Wir sagen WP: Suche in Kategorien ODER Tags nach diesem Begriff
+    $query['tax_query'] = array(
+        'relation' => 'OR',
+        array(
+            'taxonomy' => 'category',
+            'field'    => 'name',
+            'terms'    => $search_term,
+            'operator' => 'LIKE' // Suche nach Teilbegriffen
+        ),
+        array(
+            'taxonomy' => 'post_tag',
+            'field'    => 'name',
+            'terms'    => $search_term,
+            'operator' => 'LIKE'
+        )
+    );
+
+    return $query;
+}
