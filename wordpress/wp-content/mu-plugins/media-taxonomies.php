@@ -45,3 +45,37 @@ add_filter( 'manage_upload_sortable_columns', function( $sortable_columns ) {
     $sortable_columns['tags'] = 'tags';
     return $sortable_columns;
 });
+
+/**
+ * 5. Suche in der Mediathek auf Kategorien und Schlagworte ausweiten
+ */
+add_filter( 'posts_clauses', function( $clauses, $query ) {
+    global $wpdb;
+
+    // Nur in der Administration und nur bei der Mediathek-Suche ausführen
+    if ( ! is_admin() || ! $query->is_main_query() || $query->get('post_type') !== 'attachment' ) {
+        return $clauses;
+    }
+
+    $s = $query->get('s');
+    if ( empty($s) ) {
+        return $clauses;
+    }
+
+    // Die Suche auf Taxonomien (category & post_tag) ausweiten
+    $clauses['where'] .= $wpdb->prepare("
+        OR EXISTS (
+            SELECT 1 FROM {$wpdb->term_relationships} tr
+            JOIN {$wpdb->term_taxonomy} tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
+            JOIN {$wpdb->terms} t ON tt.term_id = t.term_id
+            WHERE tr.object_id = {$wpdb->posts}.ID
+            AND (tt.taxonomy = 'category' OR tt.taxonomy = 'post_tag')
+            AND t.name LIKE %s
+        )", '%' . $wpdb->esc_like($s) . '%'
+    );
+
+    // Verhindert Duplikate in der Ergebnisliste
+    $clauses['distinct'] = 'DISTINCT';
+
+    return $clauses;
+}, 10, 2 );
