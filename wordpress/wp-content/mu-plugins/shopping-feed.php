@@ -1,10 +1,9 @@
 <?php
-/*
-  Plugin Name: Minimalist Google Shopping Feed
-  Description: Generiert einen sauberen XML-Feed für das Google Merchant Center ohne Tracking.
-  Author: Gemini & Du
-*/
-
+/**
+ *Plugin Name: Minimalist Google Shopping Feed
+ * Description: Generiert einen sauberen XML-Feed für das Google Merchant Center ohne Tracking.
+ * Author: Christian Eichert
+ */
 // Absoluter Pfad zum Vendor-Verzeichnis (außerhalb von WordPress-Core)
 
 $autoload_file = realpath( dirname(ABSPATH). '/vendor/autoload.php');
