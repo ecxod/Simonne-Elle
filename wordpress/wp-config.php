@@ -34,22 +34,37 @@ $envfile = realpath(dirname(ABSPATH, 1));
 $dotenv = Dotenv\Dotenv::createImmutable($envfile);
 $dotenv->load();
 # $dotenv->safeLoad();
-$dotenv->required('SENTRY_DSN');
+$dotenv->required('DB_NAME');
+$dotenv->required('DB_USER');
+$dotenv->required('DB_PASSWORD');
+$dotenv->required('DB_HOST');
+$dotenv->required('DB_CHARSET');
+$dotenv->required('DB_COLLATE');
+#
+$dotenv->required('AUTH_KEY');
+$dotenv->required('SECURE_AUTH_KEY');
+$dotenv->required('LOGGED_IN_KEY');
+$dotenv->required('NONCE_KEY');
+$dotenv->required('AUTH_SALT');
+$dotenv->required('SECURE_AUTH_SALT');
+$dotenv->required('LOGGED_IN_SALT');
+$dotenv->required('NONCE_SALT');
+#
+$dotenv->required('WP_REDIS_HOST');
+$dotenv->required('WP_REDIS_PORT');
+$dotenv->required('WP_REDIS_DATABASE');
+$dotenv->required('WP_CACHE_KEY_SALT');
+
 
 \Sentry\init(['dsn' => $_ENV['SENTRY_DSN']]);
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 define( 'DB_NAME',     $_ENV['DB_NAME'] );
-/** Database username */
 define( 'DB_USER',     $_ENV['DB_USER'] );
-/** Database password */
 define( 'DB_PASSWORD', $_ENV['DB_PASSWORD'] );
-/** Database hostname */
 define( 'DB_HOST',     $_ENV['DB_HOST'] );
-/** Database charset to use in creating database tables. */
 define( 'DB_CHARSET',  $_ENV['DB_CHARSET'] );
-/** The database collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE',  $_ENV['DB_COLLATE'] );
 
 /**#@+
