@@ -3,8 +3,8 @@
 // kein Zugriff auf xmlrpc.php
 add_filter('xmlrpc_enabled', '__return_false');
 
-
 // Client-Cache-Antwort-Header
+add_action('send_headers', 'add_cache_headers');
 function add_cache_headers() {
     header("Cache-Control: public, max-age=31536000");
     header("Expires: " . gmdate("D, d M Y H:i:s", time() + 31536000) . " GMT");
@@ -17,8 +17,6 @@ function add_cache_headers() {
     header("X-Srcache-Store-Status: stored"); // Status der Cache-Speicherung
     header("X-Srcache-Fetch-Status: hit"); // Status des Cache-Abrufs
 }
-add_action('send_headers', 'add_cache_headers');
-
 
 add_action('wp_enqueue_scripts', 'child_theme_enqueue_styles');
 function child_theme_enqueue_styles() {
@@ -65,20 +63,6 @@ function meine_seiten_spalte_titelform_hinzufuegen( $columns ) {
     }
     return $new_columns ?: $columns;
 }
-
-/**
- * Kategorien und Schlagworte für Medien (Attachments) aktivieren
- */
-function dry_add_taxonomies_to_media() {
-    // Standard-Kategorien für Medien registrieren
-    register_taxonomy_for_object_type('category', 'attachment');
-    // Standard-Schlagworte für Medien registrieren
-    register_taxonomy_for_object_type('post_tag', 'attachment');
-}
-add_action('init', 'dry_add_taxonomies_to_media');
-
-
-
 
 // Inhalt der neuen Spalte ausgeben
 add_action( 'manage_pages_custom_column', 'meine_seiten_spalte_titelform_inhalt', 10, 2 );
@@ -139,7 +123,6 @@ function mein_archiviert_status_anzeigen( $post_states, $post ) {
     return $post_states;
 }
 
-
 // Im Quick Edit und Bulk Edit + Einzel-Bearbeitung hinzufügen – aber sauber nur einmal
 add_action( 'admin_footer', 'mein_archiviert_quick_edit_js' );  // statt zwei separater Hooks
 function mein_archiviert_quick_edit_js() {
@@ -164,4 +147,3 @@ function mein_archiviert_quick_edit_js() {
     </script>
     <?php
 }
-
