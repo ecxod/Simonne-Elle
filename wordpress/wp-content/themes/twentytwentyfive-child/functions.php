@@ -66,6 +66,18 @@ function meine_seiten_spalte_titelform_hinzufuegen( $columns ) {
     return $new_columns ?: $columns;
 }
 
+/**
+ * Kategorien und Schlagworte für Medien (Attachments) aktivieren
+ */
+function dry_add_taxonomies_to_media() {
+    // Standard-Kategorien für Medien registrieren
+    register_taxonomy_for_object_type('category', 'attachment');
+    // Standard-Schlagworte für Medien registrieren
+    register_taxonomy_for_object_type('post_tag', 'attachment');
+}
+add_action('init', 'dry_add_taxonomies_to_media');
+
+
 
 
 // Inhalt der neuen Spalte ausgeben
