@@ -1,9 +1,15 @@
 <?php
 /**
- * Plugin Name: Custom Site Health – wp-content writable (erweitert: Ordner + Dateien + Real-Tests)
- * Description: Prüft wp-content-Ordner, wichtige Dateien und reale Schreibbarkeit. Entfernt den nervigen Core-Dateien-Test.
- * Author : Christian Eichert
- * Datum : 2026-03-03
+ * Plugin Name:       Custom Site Health – wp-content writable (erweitert: Ordner + Dateien + Real-Tests)
+ * Text Domain:       custom-site-health-wp-content-writable
+ * Plugin URI:        https://github.com/ecxod/custom-site-health-wp-content-writable
+ * Description:       Prüft wp-content-Ordner, wichtige Dateien und reale Schreibbarkeit. Entfernt den nervigen Core-Dateien-Test.
+ * Author:            Christian Eichert <c@zp1.net>
+ * Author URI:        https://github.com/ecxod
+ * License:           GPL-2.0-or-later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * Version:           1.0
+ * Datum:             03.03.2026
  */
 
 add_filter( 'site_status_tests', function( $tests ) {
