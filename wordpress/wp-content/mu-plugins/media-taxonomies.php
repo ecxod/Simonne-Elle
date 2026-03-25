@@ -1,9 +1,14 @@
 <?php
 /**
- * Plugin Name: Media Taxonomies & Columns
- * Description: Aktiviert Kategorien/Tags für Medien und macht sie in der Mediathek sortierbar.
- * Author: Christian Eichert
- * Version: 1.0
+ * Plugin Name:       Media Taxonomies & Columns
+ * Text Domain:       media-taxonomies-columns
+ * Plugin URI:        https://github.com/ecxod/media-taxonomies-columns
+ * Description:       Aktiviert Kategorien/Tags für Medien und macht sie in der Mediathek sortierbar.
+ * Author:            Christian Eichert
+ * Author URI:        https://github.com/ecxod
+ * License:           GPL-2.0-or-later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * Version:           1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
