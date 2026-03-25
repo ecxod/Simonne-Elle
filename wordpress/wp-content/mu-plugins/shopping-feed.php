@@ -1,8 +1,14 @@
 <?php
 /**
- *Plugin Name: Minimalist Google Shopping Feed
- * Description: Generiert einen sauberen XML-Feed für das Google Merchant Center ohne Tracking.
- * Author: Christian Eichert
+ * Plugin Name:       Minimalist Google Shopping Feed
+ * Text Domain:       minimalist-google-shopping-feed
+ * Plugin URI:        https://github.com/ecxod/minimalist-google-shopping-feed
+ * Description:       Generiert einen sauberen XML-Feed für das Google Merchant Center ohne Tracking.
+ * Version:           1.0
+ * Author:            Christian Eichert <c@zp1.net> 
+ * Author URI:        https://github.com/ecxod
+ * License:           GPL-2.0-or-later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  */
 // Absoluter Pfad zum Vendor-Verzeichnis (außerhalb von WordPress-Core)
 
@@ -10,7 +16,7 @@ $autoload_file = realpath( dirname(ABSPATH). '/vendor/autoload.php');
 
 if (file_exists($autoload_file)) {
     require_once $autoload_file;
-    
+
     // Initialisierung von Dotenv (falls du es nutzt)
     if (class_exists('Dotenv\Dotenv')) {
         $dotenv = Dotenv\Dotenv::createImmutable(ABSPATH);
@@ -41,7 +47,7 @@ function generate_google_shopping_xml() {
     if (!class_exists('WooCommerce')) return;
 
     header('Content-Type: application/xml; charset=utf-8');
-    
+
     echo '<?xml version="1.0" encoding="UTF-8"?>';
     echo '<rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">';
     echo '<channel>';
@@ -58,7 +64,7 @@ function generate_google_shopping_xml() {
 
     foreach ($products as $post) {
         $product = wc_get_product($post->ID);
-        
+
         echo '<item>';
         echo '<g:id>' . $product->get_id() . '</g:id>';
         echo '<g:title>' . htmlspecialchars($product->get_name()) . '</g:title>';
@@ -68,10 +74,10 @@ function generate_google_shopping_xml() {
         echo '<g:condition>new</g:condition>';
         echo '<g:availability>' . ($product->is_in_stock() ? 'in_stock' : 'out_of_stock') . '</g:availability>';
         echo '<g:price>' . $product->get_price() . ' ' . get_woocommerce_currency() . '</g:price>';
-        
+
         // WICHTIG: Wenn du keine EAN/GTIN hast, muss Google das wissen:
         echo '<g:identifier_exists>no</g:identifier_exists>';
-        
+
         echo '</item>';
     }
 
