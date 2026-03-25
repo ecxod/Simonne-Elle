@@ -30,11 +30,11 @@ function custom_test_content_writable_extended() {
 
     // === Wichtige Ordner (müssen writable sein) ===
     $dirs = [
-        ['wp-content',          true,  'Haupt-Ordner für Plugins, Themes, Uploads'],
-        ['wp-content/uploads',  true,  'Medien-Uploads (sehr wichtig)'],
-        ['wp-content/plugins',  true,  'Plugin-Installation & Updates'],
-        ['wp-content/themes',   true,  'Theme-Installation & Updates'],
-        ['wp-content/upgrade',  true,  'Wird während Core-Updates temporär genutzt'],
+        ['wp-content',            true,  'Haupt-Ordner für Plugins, Themes, Uploads'],
+        ['wp-content/uploads',    true,  'Medien-Uploads (sehr wichtig)'],
+        ['wp-content/plugins',    true,  'Plugin-Installation & Updates'],
+        ['wp-content/themes',     true,  'Theme-Installation & Updates'],
+        ['wp-content/upgrade',    true,  'Wird während Core-Updates temporär genutzt'],
         ['wp-content/mu-plugins', false, 'Soll nicht beschreibbar sein Must-Use-Plugins'],
 
         // Beispiele für optionale / zusätzliche Ordner – einfach true/false ändern oder auskommentieren
