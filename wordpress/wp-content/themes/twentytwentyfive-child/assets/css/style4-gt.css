@@ -1,0 +1,27 @@
+.gt-lang-code {
+    color: #d0b183;
+}
+
+.gt-current-lang {
+    background-color: #222;
+    border-top: 0;
+    padding: 1px !important;
+    margin: 1px;
+    color: #d0b183;
+    ;
+}
+
+.gt_options.gt-open {
+    color: #d0b183;
+}
+
+.gt_float_switcher {
+    color: #d0b183;
+}
+
+div#gt_float_wrapper {
+    position: fixed !important;
+    top: 0 !important;
+    right: 200px !important;
+    z-index: 999999 !important;
+}
