@@ -38,6 +38,9 @@ function child_theme_enqueue_styles():void
      */
     wp_enqueue_style(handle:'child-style', src:get_stylesheet_uri());
     wp_enqueue_style(handle:'child-style1', src:get_stylesheet_directory_uri() . '/assets/css/style1.css');
+    wp_enqueue_style(handle:'child-style2', src:get_stylesheet_directory_uri() . '/assets/css/style2.css');
+    wp_enqueue_style(handle:'child-style3', src:get_stylesheet_directory_uri() . '/assets/css/style3.css');
+    wp_enqueue_style(handle:'child-style4', src:get_stylesheet_directory_uri() . '/assets/css/style4-gt.css');
 }
 
 
