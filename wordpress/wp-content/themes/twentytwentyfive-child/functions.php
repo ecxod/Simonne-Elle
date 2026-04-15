@@ -18,14 +18,30 @@ function add_cache_headers() {
     header("X-Srcache-Fetch-Status: hit"); // Status des Cache-Abrufs
 }
 
-add_action('wp_enqueue_scripts', 'child_theme_enqueue_styles');
-function child_theme_enqueue_styles() {
-    // Parent-Theme-Stylesheet laden
-    wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
 
-    // Child-Theme-Stylesheet laden (falls du eigene CSS hast)
-    wp_enqueue_style('child-style', get_stylesheet_uri());
+
+add_action(hook_name:'wp_enqueue_scripts', callback:'child_theme_enqueue_styles');
+function child_theme_enqueue_styles():void 
+{
+    // Parent-Theme-Stylesheet laden
+    wp_enqueue_style(handle:'parent-style', src:get_template_directory_uri() . '/style.css');
+
+    // Child-Theme-Stylesheet laden ( dies ladet die style.css im child Verzeichnis.)
+    /**
+     * wp_enqueue_style(handle:'child-style', src:get_stylesheet_uri()); 
+     * get_stylesheet_uri = > gibt direkt den plad inklusive style.css
+     * Es ist das selbe wie das hier
+     * wp_enqueue_style('child-style1', get_stylesheet_directory_uri() . '/style.css');
+     * get_stylesheet_directory_uri() bibt eben nur den Ordner aus wo sichj die style.css befindet.
+     * "template" = ist immer das template
+     * "stylesheet" = immer das child
+     */
+    wp_enqueue_style(handle:'child-style', src:get_stylesheet_uri());
+    wp_enqueue_style(handle:'child-style1', src:get_stylesheet_directory_uri() . '/assets/css/style1.css');
 }
+
+
+
 
 // Zusätzliche Spalte "Link / Permalink" bei Seiten-Übersicht hinzufügen
 add_filter( 'manage_pages_columns', 'meine_seiten_spalte_link_hinzufuegen' );
